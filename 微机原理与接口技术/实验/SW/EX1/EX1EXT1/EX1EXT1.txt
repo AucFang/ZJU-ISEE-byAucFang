@@ -1,0 +1,21 @@
+	ORG 0100H
+	MOV R6, SP	;暂存保护SP内容
+	MOV SP, #3FH	;SP移至源数据末字节
+	MOV R0, #4FH	;工作寄存器指向目标地址的末尾
+	MOV R7, #10H	;传送字节数
+LP: 	POP ACC		;取源数据
+	MOV @R0, A	;数据传送到目标地址
+	DEC R0		;修正目标地址指针
+	DJNZ R7, LP	;未传送完成则循环
+	MOV SP, R6	;恢复SP
+
+	ORG 0000H
+	MOV R0,#30H
+	MOV R1,#40H
+	MOV R2,#10H
+L1:	MOV A ,@R0
+	MOV @R1,A
+	INC R0
+	INC R1
+	DJNZ R2,L1
+	END
