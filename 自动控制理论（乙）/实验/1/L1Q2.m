@@ -1,0 +1,12 @@
+%L1Q2
+s=tf('s');
+sys1=1/(s+1);
+sys2=1/(s+2);
+sys3=1/(s+3);
+sys4=(s+1)/(s+4);
+sys5=(s+3)/(s+5);
+sys6=series(series(sys1,sys2),sys3);
+sys7=sys4-sys5;
+sys8=feedback(sys6,sys7,-1);
+sys9=1;
+sysc=feedback(sys8,sys9,-1);
